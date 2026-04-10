@@ -1,109 +1,126 @@
 # Moodify
-
-Moodify is a web application that analyzes emotions from images and provides a curated Spotify playlist 
-
-## Features
-- Upload an image to analyze emotions.
-- View the detected emotion and confidence level.
-- Get a Spotify playlist tailored to the detected emotion.
-- Interactive and responsive user interface.
-
-## Prerequisites
-To run Moodify, ensure you have the following installed:
-- Python 3.8+
-- pip (Python package manager)
-- MongoDB (for storing emotions and entries)
-
-## Setup Instructions
-
-### 1. Clone the Repository
+ 
+Moodify est une application web qui analyse les émotions à partir d'images et propose une playlist Spotify adaptée.
+ 
+## Fonctionnalités
+ 
+* Télécharger une image pour analyser les émotions.
+* Afficher l'émotion détectée et le niveau de confiance.
+* Obtenir une playlist Spotify adaptée à l'émotion détectée.
+* Interface utilisateur interactive et responsive.
+ 
+## Prérequis
+ 
+Pour lancer Moodify, assurez-vous d'avoir installé :
+ 
+* Python 3.8+
+* pip (gestionnaire de paquets Python)
+* MongoDB (pour stocker les émotions et les entrées)
+ 
+## Instructions d'installation
+ 
+### 1. Cloner le dépôt
+ 
 ```bash
 git clone <repository-url>
 cd Moodify
 ```
-
-### 2. Install Dependencies
-install packages
-pip install python-dotenv flask flask-cors google-genai pymongo 
-
+ 
+### 2. Installer les dépendances
+ 
+```bash
+pip install python-dotenv flask flask-cors google-genai pymongo
 ```
-
-### 3. Configure MongoDB
-Ensure MongoDB is running locally or remotely. Update the database connection string in `app.py` if necessary.
-
-### 4. Run the Application
-Start the Flask server:
+ 
+### 3. Configurer MongoDB
+ 
+Assurez-vous que MongoDB est en cours d'exécution localement ou à distance. Mettez à jour la chaîne de connexion à la base de données dans `app.py` si nécessaire.
+ 
+> **Avant de démarrer**, contactez **Hanine** pour configurer MongoDB et obtenir les accès à la base de données.
+ 
+### 4. Lancer l'application
+ 
+Démarrez le serveur Flask :
+ 
 ```bash
 python app.py
 ```
-The application will be available at `http://127.0.0.1:5000`.
-
-### 5. Access the Web Interface
-Open your browser and navigate to:
+ 
+L'application sera disponible à l'adresse `http://127.0.0.1:5000`.
+ 
+### 5. Accéder à l'interface web
+ 
+Ouvrez votre navigateur et rendez-vous sur :
+ 
 ```
 http://127.0.0.1:5000
 ```
-
-## Folder Structure
+ 
+## Structure du projet
+ 
 ```
 Moodify/
-
-│   ├── app.py               # Flask backend
-│   ├── static/              # Static files (CSS, JS)
-│   │   ├── style.css        # Styling for the app
-│   │   ├── script.js        # Frontend logic
-│   ├── templates/           # HTML templates
-│   │   ├── index.html       # Home page
-│   │   ├── playlist.html    # Playlist page
-│   ├── README.md            # Project documentation
-│   ├── emotions.json        # Sample emotions data
-│   ├── entries.json         # Sample entries data
+│   ├── app.py               # Backend Flask
+│   ├── static/              # Fichiers statiques (CSS, JS)
+│   │   ├── style.css        # Styles de l'application
+│   │   ├── script.js        # Logique frontend
+│   ├── templates/           # Templates HTML
+│   │   ├── index.html       # Page d'accueil
+│   │   ├── playlist.html    # Page de playlist
+│   ├── README.md            # Documentation du projet
+│   ├── emotions.json        # Données d'émotions (exemples)
+│   ├── entries.json         # Données d'entrées (exemples)
 ```
-## problemes rencontrés : 
-## Issues Encountered
-
-- The application occasionally crashes
-- Database entries are no longer being saved.
-- The AI analysis functionality is not operational.
-- before working, refer to hanine to set up mongo db, and give the user acces to the databse
-
-
-## API Endpoints
-
+ 
+## Problèmes connus
+ 
+* L'application plante occasionnellement.
+* Les entrées ne sont plus sauvegardées en base de données.
+* La fonctionnalité d'analyse par IA n'est pas opérationnelle.
+ 
+## Endpoints API
+ 
 ### 1. `/analyse-emotion` (POST)
-- **Description**: Accepts an image and returns the detected emotion and confidence level.
-- **Request**:
-  - Method: `POST`
-  - Body: FormData with an image file.
-- **Response**:
-  ```json
-  {
-    "emotion": "happy",
-    "confidence": 95.0
-  }
-  ```
-
+ 
+* **Description** : Accepte une image et retourne l'émotion détectée ainsi que le niveau de confiance.
+* **Requête** :
+  * Méthode : `POST`
+  * Corps : `FormData` contenant un fichier image.
+* **Réponse** :
+ 
+```json
+{
+  "emotion": "happy",
+  "confidence": 95.0
+}
+```
+ 
 ### 2. `/save-emotion` (POST)
-- **Description**: Saves the detected emotion and its associated Spotify playlist URL.
-- **Request**:
-  - Method: `POST`
-  - Body: JSON with `emotion` and `spotify_url`.
-- **Response**:
-  ```json
-  {
-    "message": "Emotion enregistrée avec succès"
-  }
-  ```
-
+ 
+* **Description** : Sauvegarde l'émotion détectée et l'URL de la playlist Spotify associée.
+* **Requête** :
+  * Méthode : `POST`
+  * Corps : JSON avec `emotion` et `spotify_url`.
+* **Réponse** :
+ 
+```json
+{
+  "message": "Emotion enregistrée avec succès"
+}
+```
+ 
 ### 3. `/playlist` (GET)
-- **Description**: Displays the most recent emotion and its Spotify playlist.
-- **Response**: Renders the `playlist.html` template.
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Acknowledgments
-- Flask for the backend framework.
-- MongoDB for the database.
-- Spotify for the playlists.
-- Open-source libraries and tools.
+ 
+* **Description** : Affiche la dernière émotion détectée et sa playlist Spotify.
+* **Réponse** : Rendu du template `playlist.html`.
+ 
+## Licence
+ 
+Ce projet est sous licence MIT. Consultez le fichier `LICENSE` pour plus de détails.
+ 
+## Remerciements
+ 
+* **Flask** pour le framework backend.
+* **MongoDB** pour la base de données.
+* **Spotify** pour les playlists.
+* Les bibliothèques et outils open-source utilisés.
