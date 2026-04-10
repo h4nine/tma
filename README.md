@@ -1,126 +1,120 @@
+
+
 # Moodify
- 
-Moodify est une application web qui analyse les émotions à partir d'images et propose une playlist Spotify adaptée.
- 
+
+Moodify est une application web qui analyse les émotions à partir d'images pour proposer une playlist Spotify personnalisée.
+
 ## Fonctionnalités
- 
-* Télécharger une image pour analyser les émotions.
-* Afficher l'émotion détectée et le niveau de confiance.
-* Obtenir une playlist Spotify adaptée à l'émotion détectée.
-* Interface utilisateur interactive et responsive.
- 
+- **Analyse d'image** : Importez une photo pour détecter l'émotion associée.
+- **Détails de détection** : Visualisez l'émotion détectée et le niveau de confiance de l'IA.
+- **Playlists Spotify** : Obtenez une playlist adaptée à votre humeur actuelle.
+- **Interface responsive** : Une expérience utilisateur interactive et fluide.
+
+## Technologies utilisées (TechStack)
+
+Ce projet a été réalisé avec les technologies suivantes :
+
+- **Frontend** : HTML, CSS, JavaScript
+- **Backend** : Flask (Python)
+- **Base de données** : MongoDB
+- **IA/ML** : Google GenAI
+- **Autres outils** : Python-dotenv, Flask-CORS, API Spotify
+- **Gestion de version** : Git
+- **Hébergement** : Localhost (serveur de développement Flask)
+- **Gestionnaire de paquets** : pip
+
 ## Prérequis
- 
 Pour lancer Moodify, assurez-vous d'avoir installé :
- 
-* Python 3.8+
-* pip (gestionnaire de paquets Python)
-* MongoDB (pour stocker les émotions et les entrées)
- 
+- Python 3.8+
+- pip (gestionnaire de paquets Python)
+- MongoDB (pour le stockage des émotions et des entrées)
+
 ## Instructions d'installation
- 
+
 ### 1. Cloner le dépôt
- 
 ```bash
 git clone <repository-url>
 cd Moodify
 ```
- 
+
 ### 2. Installer les dépendances
- 
+Installez les bibliothèques nécessaires :
 ```bash
-pip install python-dotenv flask flask-cors google-genai pymongo
+pip install python-dotenv flask flask-cors google-genai pymongo 
 ```
- 
+
 ### 3. Configurer MongoDB
- 
-Assurez-vous que MongoDB est en cours d'exécution localement ou à distance. Mettez à jour la chaîne de connexion à la base de données dans `app.py` si nécessaire.
- 
-> **Avant de démarrer**, contactez **Hanine** pour configurer MongoDB et obtenir les accès à la base de données.
- 
+Vérifiez que MongoDB tourne en local ou à distance. Si besoin, mettez à jour la chaîne de connexion dans `app.py`.
+
 ### 4. Lancer l'application
- 
 Démarrez le serveur Flask :
- 
 ```bash
 python app.py
 ```
- 
-L'application sera disponible à l'adresse `http://127.0.0.1:5000`.
- 
+L'application sera disponible sur `http://127.0.0.1:5000`.
+
 ### 5. Accéder à l'interface web
- 
-Ouvrez votre navigateur et rendez-vous sur :
- 
+Ouvrez votre navigateur à l'adresse suivante :
 ```
 http://127.0.0.1:5000
 ```
- 
+
 ## Structure du projet
- 
 ```
 Moodify/
 │   ├── app.py               # Backend Flask
 │   ├── static/              # Fichiers statiques (CSS, JS)
-│   │   ├── style.css        # Styles de l'application
+│   │   ├── style.css        # Design de l'application
 │   │   ├── script.js        # Logique frontend
 │   ├── templates/           # Templates HTML
 │   │   ├── index.html       # Page d'accueil
-│   │   ├── playlist.html    # Page de playlist
+│   │   ├── playlist.html    # Page de la playlist
 │   ├── README.md            # Documentation du projet
-│   ├── emotions.json        # Données d'émotions (exemples)
-│   ├── entries.json         # Données d'entrées (exemples)
+│   ├── emotions.json        # Exemple de données d'émotions
+│   ├── entries.json         # Exemple de données d'entrées
 ```
- 
-## Problèmes connus
- 
-* L'application plante occasionnellement.
-* Les entrées ne sont plus sauvegardées en base de données.
-* La fonctionnalité d'analyse par IA n'est pas opérationnelle.
- 
-## Endpoints API
- 
+
+## Problèmes rencontrés (Issues)
+
+1. **Sauvegarde en base de données** : L'API rencontre parfois une erreur lors de l'exécution, empêchant l'enregistrement des entrées. Cela peut être lié à la configuration de MongoDB ou à la logique de l'API.
+2. **Boutons de redirection** : Certains boutons de l'interface ne fonctionnent pas comme prévu (problème potentiel de routage ou d'erreurs JavaScript).
+3. **Accès aux fonctionnalités IA** : 
+   - La page dédiée à l'IA est parfois inaccessible.
+   - Des erreurs "Internal Server Error" surviennent occasionnellement côté backend.
+4. **Configuration MongoDB** : Avant de lancer l'application, il est nécessaire de consulter Hanine pour configurer MongoDB et s'assurer des droits d'accès.
+
+## Points de terminaison de l'API (Endpoints)
+
 ### 1. `/analyse-emotion` (POST)
- 
-* **Description** : Accepte une image et retourne l'émotion détectée ainsi que le niveau de confiance.
-* **Requête** :
-  * Méthode : `POST`
-  * Corps : `FormData` contenant un fichier image.
-* **Réponse** :
- 
-```json
-{
-  "emotion": "happy",
-  "confidence": 95.0
-}
-```
- 
+- **Description** : Analyse une image et renvoie l'émotion détectée.
+- **Requête** : `FormData` contenant un fichier image.
+- **Réponse** :
+  ```json
+  {
+    "emotion": "happy",
+    "confidence": 95.0
+  }
+  ```
+
 ### 2. `/save-emotion` (POST)
- 
-* **Description** : Sauvegarde l'émotion détectée et l'URL de la playlist Spotify associée.
-* **Requête** :
-  * Méthode : `POST`
-  * Corps : JSON avec `emotion` et `spotify_url`.
-* **Réponse** :
- 
-```json
-{
-  "message": "Emotion enregistrée avec succès"
-}
-```
- 
+- **Description** : Enregistre l'émotion et l'URL de la playlist Spotify associée.
+- **Requête** : JSON avec `emotion` et `spotify_url`.
+- **Réponse** :
+  ```json
+  {
+    "message": "Emotion enregistrée avec succès"
+  }
+  ```
+
 ### 3. `/playlist` (GET)
- 
-* **Description** : Affiche la dernière émotion détectée et sa playlist Spotify.
-* **Réponse** : Rendu du template `playlist.html`.
- 
+- **Description** : Affiche l'émotion la plus récente et sa playlist.
+- **Réponse** : Génère le template `playlist.html`.
+
 ## Licence
- 
-Ce projet est sous licence MIT. Consultez le fichier `LICENSE` pour plus de détails.
- 
+Ce projet est sous licence MIT.
+
 ## Remerciements
- 
-* **Flask** pour le framework backend.
-* **MongoDB** pour la base de données.
-* **Spotify** pour les playlists.
-* Les bibliothèques et outils open-source utilisés.
+- Flask pour le framework backend.
+- MongoDB pour la base de données.
+- Spotify pour les playlists.
+- Les différentes bibliothèques open-source utilisées.
