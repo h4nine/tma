@@ -75,7 +75,7 @@ Moodify/
 ```
 
 ## Problèmes rencontrés (Issues)
-
+1. **Clé API** : faut décrypter !
 1. **Sauvegarde en base de données** : L'API rencontre parfois une erreur lors de l'exécution, empêchant l'enregistrement des entrées. Cela peut être lié à la configuration de MongoDB ou à la logique de l'API.
 2. **Boutons de redirection** : Certains boutons de l'interface ne fonctionnent pas comme prévu (problème potentiel de routage ou d'erreurs JavaScript).
 3. **Accès aux fonctionnalités IA** : 
